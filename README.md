@@ -194,7 +194,7 @@ This folder contain the api example with uvicorn server
 
 2. Access `http://127.0.0.1:8000/docs`
 
-3. Access `http://127.0.0.1:8000/predict`, Try running the predict endpoint by writing the values: 
+3. Try running the predict endpoint by writing the values: 
 ```bash
 {
   "experience_level": "Expert",
@@ -209,7 +209,7 @@ This folder contain the api example with uvicorn server
 
 The endpoint return the valor of prediction and the values used for that, you will see a message like this `"Resultado predicción: [136987.83103204] for data: ['Expert', 'Full_Time', 'Principal Data Scientist', 'ES', 'ES', 'S', 50.0]"`
 
-4. Access `http://127.0.0.1:8000/train_model`, Try running the predict endpoint, you will see a message like this `"Trained model ready to go!"`
+4. Try running the predict endpoint, you will see a message like this `"Trained model ready to go!"`
 
 
 
@@ -233,8 +233,8 @@ The endpoint return the valor of prediction and the values used for that, you wi
     Output:
 
     ```bash
-    REPOSITORY               TAG       IMAGE ID       CREATED              SIZE
-    ds-salaries-image        latest    d6a1f976aa5b   About a minute ago   495MB
+    REPOSITORY          TAG       IMAGE ID       CREATED          SIZE
+    ds-salaries-image   latest    a6c51bedf9c0   18 seconds ago   495MB
     ```
 
 #### Run ds salaries REST API
@@ -243,6 +243,13 @@ The endpoint return the valor of prediction and the values used for that, you wi
 
     ```bash
     docker run -d --rm --name ds_salaries-c -p 8000:8000 ds-salaries-image
+    ```
+    
+    Output:
+
+    ```bash
+    ds-salaries-image
+    0f2e31e47f70768c50043b53e2d5e44d3c713fcc0047dab77c32861e4c9a67fd
     ```
 
 2. Check the container running.
@@ -254,8 +261,8 @@ The endpoint return the valor of prediction and the values used for that, you wi
     Output:
 
     ```bash
-    CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS          PORTS                    NAMES
-    53d78fb5223f   titanic-image   "uvicorn main:app --…"   19 seconds ago   Up 18 seconds   0.0.0.0:8000->8000/tcp   titanic-c
+    CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                    NAMES
+    53d78fb5223f  ds-salaries-image     "uvicorn main:app --…"   19 seconds ago   Up 18 seconds   0.0.0.0:8000->8000/tcp   ds_salaries-c
     ```
 
 #### Checking endpoints
@@ -271,19 +278,13 @@ The endpoint return the valor of prediction and the values used for that, you wi
 
         ```bash
         {
-        "pclass_nan": 0,
-        "age_nan": 0,
-        "sibsp_nan": 0,
-        "parch_nan": 0,
-        "fare_nan": 0,
-        "sex_male": 1,
-        "cabin_Missing": 1,
-        "cabin_rare": 0,
-        "embarked_Q": 1,
-        "embarked_S": 0,
-        "title_Mr": 1,
-        "title_Mrs": 0,
-        "title_rar": 0
+        "experience_level": "Expert",
+        "employment_type": "Full-Time",
+        "job_title": "Principal Data Scientist",
+        "employee_residence": "ES",
+        "company_location": "ES",
+        "company_size": "S",
+        "remote_ratio": 50
         }
         ```
 
@@ -291,29 +292,21 @@ The endpoint return the valor of prediction and the values used for that, you wi
         The output will be:
 
         ```bash
-        "Resultado predicción: [0]"
+         `"Resultado predicción: [136987.83103204] for data: ['Expert', 'Full_Time', 'Principal Data Scientist', 'ES', 'ES', 'S', 50.0]"`
         ```
-
-        ![Prediction 1](docs/imgs/prediction-1.png)
 
     * **Prediction 2**  
         Request body
 
         ```bash
-         {
-            "pclass_nan": 0,
-            "age_nan": 0,
-            "sibsp_nan": 1,
-            "parch_nan": 0,
-            "fare_nan": 0,
-            "sex_male": 0,
-            "cabin_Missing": 0,
-            "cabin_rare": 0,
-            "embarked_Q": 1,
-            "embarked_S": 0,
-            "title_Mr": 1,
-            "title_Mrs": 0,
-            "title_rar": 0
+        {
+        "experience_level": "Junior",
+        "employment_type": "Partial",
+        "job_title": "Principal Data Scientist",
+        "employee_residence": "MX",
+        "company_location": "MX",
+        "company_size": "L",
+        "remote_ratio": 30
         }
         ```
 
@@ -321,7 +314,7 @@ The endpoint return the valor of prediction and the values used for that, you wi
         The output will be:
 
         ```bash
-        "Resultado predicción: [1]"
+        `"Resultado predicción: [139212.73483592] for data: ['Junior', 'Partial', 'Principal Data Scientist', 'MX', 'MX', 'L', 30.0]"`
         ```
 
-        ![Prediction 2](docs/imgs/prediction-2.png)
+
