@@ -3,6 +3,19 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.compose import ColumnTransformer
 from preprocess.preprocess_data import *
+import logging
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('train_data.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
+
 
 class SalaryDataPipeline:
     """
@@ -21,6 +34,7 @@ class SalaryDataPipeline:
     
     def __init__(self, seed_model, numerical_vars, categorical_vars_with_na,
                  numerical_vars_with_na, categorical_vars, selected_features):
+        logger.info("Initializate the pipeline")
         self.SEED_MODEL = seed_model
         self.NUMERICAL_VARS = numerical_vars
         self.CATEGORICAL_VARS_WITH_NA = categorical_vars_with_na
@@ -37,6 +51,8 @@ class SalaryDataPipeline:
         Returns:
             Pipeline: A scikit-learn pipeline for data processing and modeling.
         """
+        logger.debug("Begin the creation for pipeline")
+
         self.PIPELINE = Pipeline(
             [                   
                                 ('dummy_vars', OneHotEncoder(variables=self.CATEGORICAL_VARS)), 
@@ -46,6 +62,7 @@ class SalaryDataPipeline:
         return self.PIPELINE
     
     def fit_linear_regression(self, X_train, y_train):
+        logger.debug("Begin the linear regression training")
         """
         Fit a Linear Regression model using the predefined data preprocessing pipeline.
 
@@ -59,9 +76,7 @@ class SalaryDataPipeline:
         linear_regression = LinearRegression()
         pipeline = self.create_pipeline()
         pipeline.fit(X_train, y_train)
-        print(X_train.shape)
         X_transform = pipeline.transform(X_train)
-        print(X_transform.shape)
         linear_regression.fit(X_transform, y_train)
         return linear_regression
     
@@ -76,9 +91,8 @@ class SalaryDataPipeline:
         Returns:
             X_test_transformed (pd.DataFrame): Transformed test data using the pipeline.
         """
+        logger.debug("Begin the transformation for the test data")
         pipeline = self.create_pipeline()
-        print(X_test.shape)
         pipeline.fit(X_test)
         X_test_transformed = pipeline.transform(X_test)
-        print(X_test_transformed.shape)
         return X_test_transformed

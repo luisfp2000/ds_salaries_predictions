@@ -6,8 +6,21 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import joblib
 import os
-from sklearn.metrics import accuracy_score
+import logging
 from sklearn.metrics import mean_absolute_percentage_error
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('ds_salaries_predictions.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
+
+
 
 DATASETS_DIR = './data/'
 URL = 'https://raw.githubusercontent.com/luisfp2000/proyecto_final/main/Dataset/ds_salaries.csv'
@@ -46,14 +59,17 @@ PIPELINE_SAVE_FILE = f'{PIPELINE_NAME}_output.pkl'
 
 if __name__ == "__main__":
     
+    logger.debug("Initializate the salaries prediction main")
+
     print(os.getcwd())
-    os.chdir('C:/Users/luis.fernandez.COPPEL/LFPGit/proyectofinal/Refactor/refactor_salarios/ds_salaries_predictions/ds_salaries_predictions')
+    os.chdir('/ds_salaries_predictions/ds_salaries_predictions')
     
     # Retrieve data
     data_retriever = DataRetriever(URL, DATASETS_DIR)
     result = data_retriever.retrieve_data()
     print(result)
     
+    logger.info("call the pipeline")
     # Instantiate the SalaryDataPipeline class
     salary_data_pipeline = SalaryDataPipeline (seed_model=SEED_MODEL,
                                                 numerical_vars=NUMERICAL_VARS, 
@@ -62,7 +78,7 @@ if __name__ == "__main__":
                                                 categorical_vars=CATEGORICAL_VARS,
                                                 selected_features=SELECTED_FEATURES)
     
-    
+    logger.info("load the dataset for training")
     # Read data
     df = pd.read_csv(DATASETS_DIR + RETRIEVED_DATA)
     
@@ -73,23 +89,29 @@ if __name__ == "__main__":
                                                         test_size=0.2,
                                                    )
     
-
+    logger.info("call the linear regression training")
     linear_regression_model = salary_data_pipeline.fit_linear_regression(X_train, y_train)
     
-
+    logger.info("call the linear regression test")
     X_test = salary_data_pipeline.apply_pipeline_to_test_data(X_train)
     y_pred = linear_regression_model.predict(X_test)
     
 
     y_true = y_train
   
-    print(f'MAPE: {(1-mean_absolute_percentage_error(y_true, y_pred))*100}')
+    logger.info("metrics info")
+
+    MAPE=(1-mean_absolute_percentage_error(y_true, y_pred))*100
+
+    logger.info("metrics info: \n"+ MAPE)
+
     
 
     # # Save the model using joblib
     save_path = TRAINED_MODEL_DIR + PIPELINE_SAVE_FILE
     joblib.dump(linear_regression_model, save_path)
-    print(f"Model saved in {save_path}")
+    logger.debug("Model saved in: "+ save_path)
+   
     
 
     

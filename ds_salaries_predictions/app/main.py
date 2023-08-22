@@ -1,9 +1,9 @@
 import logging
 import os
 import sys
-import pandas as pd
-import logging
 
+import logging
+import pandas as pd
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
 
@@ -15,7 +15,6 @@ import subprocess
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
 sys.path.append(parent_dir)
-
 
 
 logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
@@ -30,8 +29,7 @@ file_handler.setFormatter(formatter) # Configuramos el formato
 logger.addHandler(file_handler) # Agregamos el archivo
 
 
-
-PATH_COLS="C:/Users/luis.fernandez.COPPEL/LFPGit/proyectofinal/Refactor/refactor_salarios/ds_salaries_predictions/ds_salaries_predictions/models/train_data.csv"
+PATH_COLS="models/train_data.csv"
 
 app = FastAPI()
 
@@ -91,7 +89,7 @@ def train_model():
     
     logger.info(f"The model is training")
     # Execute the  archivo ds_salaries_predictions.py how a process
-    subprocess.run(["python", "C:/Users/luis.fernandez.COPPEL/LFPGit/proyectofinal/Refactor/refactor_salarios/ds_salaries_predictions/ds_salaries_predictions/ds_salaries_predictions.py"])
+    subprocess.run(["python", "ds_salaries_predictions/ds_salaries_predictions.py"])
 
     
     logger.info(f"The model was train success")   
