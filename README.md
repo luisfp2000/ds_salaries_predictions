@@ -117,17 +117,26 @@ Model saved in ./models/linear_regression_output.pkl
 
 You can find the test location in the [test](tests) folder, and the following tests:
 
-* Test `test_missing_indicator_transform`:  
-Test the `transform` method of the MissingIndicator transformer.
-
-* Test `test_missing_indicator_fit`:  
-Test the `fit` method of the MissingIndicator transformer.
 
 * Test `test_csv_file_existence`:  
 Test case to check if the CSV file exists.
 
 * Test `test_model_existence`:  
 Test to validate the existence of a `.pkl` model file.
+
+Follow the next steps to run the test.
+
+* Run in the terminal:
+
+    ```bash
+    pytest ./tests/test_file.py::test_csv_file_existence -v
+    ```
+
+* Run in the terminal:
+
+    ```bash
+    pytest ./tests/test_file.py::test_model_existence -v -s
+    ```
 
 # DESCRIBE the directory Structure in the project
 
