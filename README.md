@@ -129,13 +129,21 @@ Follow the next steps to run the test.
 * Run in the terminal:
 
     ```bash
-    pytest tests/test_file.py::test_csv_file_existence -v
-    ```
+    pytest tests\test_file.py  
+    ```    
 
-* Run in the terminal:
+    Output:
 
     ```bash
-    pytest tests/test_file.py::test_model_existence -v -s
+        (refactor_salarios) C:\Users\luis.fernandez.COPPEL\LFPGit\proyectofinal\Refactor\refactor_salarios\ds_salaries_predictions>pytest c:\Users\luis.fernandez.COPPEL\LFPGit\proyectofinal\Refactor\refactor_salarios\ds_salaries_predictions\tests\test_file.py
+        ========================================================================= test session starts ==========================================================================
+        platform win32 -- Python 3.10.9, pytest-7.4.0, pluggy-1.2.0
+        rootdir: c:\Users\luis.fernandez.COPPEL\LFPGit\proyectofinal\Refactor\refactor_salarios\ds_salaries_predictions
+        plugins: anyio-3.7.1
+        collected 2 items
+
+        tests\test_filepy ..                                                                                                                    [100%] 
+        ========================================================================== 2 passed in 0.06s 
     ```
 
 # DESCRIBE the directory Structure in the project

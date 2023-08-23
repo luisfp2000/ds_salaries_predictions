@@ -2,8 +2,6 @@ import os
 import logging
 import pytest
 
-from load.load_data import DataRetriever
-
 
 logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
 logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
@@ -40,12 +38,10 @@ def test_csv_file_existence():
   
     # Provide the path to your CSV file that needs to be tested
     # refactored folder
-    REFACTORED_DIRECTORY = "C:/Users/luis.fernandez.COPPEL/LFPGit/proyectofinal/Refactor/refactor_salarios/ds_salaries_predictions"
+    REFACTORED_DIRECTORY = "ds_salaries_predictions/"
 
     os.chdir(REFACTORED_DIRECTORY)
-    csv_file_path = "./data/ds_salaries.csv"
-
-    DATASETS_DIR = "./data/"
+    csv_file_path = "data/ds_salaries.csv"
 
     # Call the function to check if the CSV file exists
     file_exists = does_csv_file_exist(csv_file_path)
@@ -69,7 +65,7 @@ def test_model_existence():
         pytest test_model_existence.py
     """
     model_filename = "linear_regression_output.pkl"
-    MODEL_DIRECTORY = "ds_salaries_predictions/models"
+    MODEL_DIRECTORY = "models"
     model_path = os.path.join(MODEL_DIRECTORY, model_filename)
     print(model_path)
     assert os.path.exists(model_path), f"Model file '{model_filename}' does not exist."
