@@ -1,7 +1,7 @@
 import os
 import sys
 import pandas as pd
-import joblib
+import logging
 
 from fastapi import FastAPI
 from predictor.predict import ModelPredictor
@@ -11,6 +11,20 @@ from load.load_data import DataRetriever
 from train.train_data import SalaryDataPipeline
 from sklearn.model_selection import train_test_split
 import subprocess
+
+
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('api.main.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
+
 
 PATH_COLS="C:/Users/luis.fernandez.COPPEL/LFPGit/proyectofinal/Refactor/refactor_salarios/ds_salaries_predictions/ds_salaries_predictions/models/train_data.csv"
 

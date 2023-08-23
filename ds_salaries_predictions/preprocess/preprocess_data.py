@@ -3,6 +3,19 @@ from sklearn.utils.validation import check_array
 import pandas as pd
 import re
 import numpy as np
+import logging
+
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('preprocess_data.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
 
 class MissingIndicator(BaseEstimator, TransformerMixin):
 
@@ -140,6 +153,7 @@ class OneHotEncoder(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
+        logger.info("One hot encoder transform!")
         """
         Performs one-hot encoding for the specified categorical variables and returns the modified DataFrame.
 

@@ -42,7 +42,7 @@ async def healthcheck():
 @app.post('/predict')
 
 def predict(ds_salaries_features: DSSalariesPrediction) -> JSONResponse: 
-
+    
     predictor = ModelPredictor("ml_models/linear_regression_output.pkl")
     
     X = [ds_salaries_features.experience_level,
