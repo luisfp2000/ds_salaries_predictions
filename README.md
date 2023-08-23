@@ -13,7 +13,7 @@ https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023/
 
 ## About the project
 
-The overall goal of this project is to build a robust and reproducible MLOps workflow for developing, training, and deploying machine learning models. A linear regression model will be used as a proof of concept due to its simplicity, and it will be applied to the Titanic data set to predict the probability of survival of a passenger based on certain characteristics.
+The overall goal of this project is to build a robust and reproducible MLOps workflow for developing, training, and deploying machine learning models. A linear regression model will be used as a proof of concept due to its simplicity, and it will be applied to the DS Salaries 2023 data set to predict the probability of survival of a passenger based on certain characteristics.
 
 This project covers the following topics:
 
@@ -66,7 +66,7 @@ This project represents a proof of concept aiming to develop a basic framework f
 
 ### Links to experiments like notebooks
 
-You can find the Titanic experiments here:
+You can find the DS Salaries 2023 experiments here:
 
 * [1-Data_Science_Salaries_Advanced_EDA.ipynb](docs/notebooks/1-Data_Science_Salaries_Advanced_EDA.ipynb)
 * [2-DS_Salary_Full_EDA_Geo_Cluster_XGboost.ipynb](docs/notebooks/2-DS_Salary_Full_EDA_Geo_Cluster_XGboost.ipynb)
@@ -276,7 +276,7 @@ The endpoint return the valor of prediction and the values used for that, you wi
 
 #### Checking endpoints
 
-1. Access `http://127.0.0.1:8000/`, and you will see a message like this `"Titanic classifier is all ready to go!"`
+1. Access `http://127.0.0.1:8000/`, and you will see a message like this `" DS Salaries Predictor is all ready to go!"`
 2. A file called `main_api.log` will be created automatically inside the container. We will inspect it below.
 3. Access `http://127.0.0.1:8000/docs`, the browser will display something like this:
     ![FastAPI Docs](docs/imgs/fast-api-docs.png)
@@ -331,13 +331,13 @@ The endpoint return the valor of prediction and the values used for that, you wi
 1. Run the command
 
     ```bash
-    docker exec -it ds_salaries-c bash
+        docker exec -it ds_salaries-c bash
     ```
 
     Output:
 
     ```bash
-    root@f87bc43f127c:/# 
+         root@f87bc43f127c:/# 
     ```
 
 2. Check the existing files:
