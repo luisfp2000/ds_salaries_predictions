@@ -259,7 +259,7 @@ The endpoint return the valor of prediction and the values used for that, you wi
 1. Run the next command to start the `ds-salaries-image` image in a container.
 
     ```bash
-    docker run -d --rm --name ds_salaries-c -p 8000:8000 ds-salaries-image
+    docker run -v logs:/logs -d --rm --name ds_salaries-c -p 8000:8000 ds-salaries-image
     ```
     
     Output:
